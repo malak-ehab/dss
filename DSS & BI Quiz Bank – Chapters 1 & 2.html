@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>DSS & BI Quiz Bank – Chapters 1 & 2</title><meta name="color-scheme" content="light dark">
+<style>
+:root{--bg:#f6f8fa;--card:#fff;--tx:#1d2733;--mu:#667085;--bd:#d9e0e7;--pr:#2f6f6a;--ok:#d9f5e3;--okb:#2e9e5b;--no:#fde3e3;--nob:#d64545;--ch:#eef2f6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14191f;--card:#1d252d;--tx:#e8edf2;--mu:#9aa6b2;--bd:#34404c;--pr:#4aa59d;--ok:#183a27;--no:#452020;--ch:#27313b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:18px 14px 60px}h1{font-size:22px;margin:0 0 4px}.sub{color:var(--mu);font-size:13px}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}.pill{background:var(--ch);padding:5px 10px;border-radius:8px;font-size:13px;font-weight:600}.sc{background:var(--ok)}
+.ic{background:#fff7d6;color:#7a4a00;border:1px solid #f0d27a;padding:5px 10px;border-radius:8px;font-size:13px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}button,select,input[type=text]{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:7px 12px;cursor:pointer}
+button.on{background:var(--pr);color:#fff;border-color:var(--pr)}.row{display:flex;gap:8px;flex-wrap:wrap}.row input{flex:1;min-width:180px;cursor:text}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin:12px 0}.meta{font-size:12px;color:var(--mu);margin-bottom:4px}
+.q h3{font-size:15px;margin:0 0 10px;font-weight:600}.o{display:block;width:100%;text-align:left;margin:6px 0;border-radius:8px}.o:hover{border-color:var(--pr)}
+.o.c{background:var(--ok);border-color:var(--okb)}.o.w{background:var(--no);border-color:var(--nob)}.note{font-size:13px;color:var(--mu);margin-top:6px}
+</style></head><body><main>
+<h1>DSS & BI Quiz Bank — Chapters 1 & 2 Only</h1>
+<div class="sub">Built from your midterms (2023, 2024, 2025, exam copies) and the Lecture 1 & 2 MCQs • Ch 3 & Ch 4 removed • Deduplicated</div>
+<div class="top"><span class="pill" id="cnt"></span><span class="pill">Answered: <span id="ans">0</span> / <span id="tot"></span></span><span class="pill sc">Score: <span id="sco">0 / 0 (0%)</span></span><label class="ic"><input type="checkbox" id="inst" checked> Instant Check (تصحيح فوري)</label></div>
+<div class="tabs" id="tabs"></div>
+<div class="row"><input type="text" id="s" placeholder="Search question text or options..."><select id="sh"><option value="a">Show: All Questions</option><option value="u">Unanswered</option><option value="w">Wrong only</option><option value="c">Correct only</option></select><button id="shuf">Shuffle Order</button><button id="rst">Reset</button></div>
+<div id="list"></div></main>
+<script>
+const TF=["True","False"];
+// [chapter, fromMidterm, question, options, correctIndex, note?]
+const D=[
+[1,1,"A ____ computer-based information system that combines data and models to solve non-structured problems with extensive user involvement through a friendly user interface.",["Decision Support System","Transaction Process System","Executive Support System","None of the above"],0],
+[1,1,"The system that processes an organization’s routine, repetitive, basic transactions such as ordering, billing, or paying.",["Management Information System","Transaction Process System","Executive Support System","None of the above"],1],
+[1,1,"The physical repository where relational data are specially organized to provide enterprise-wide, cleaned data in a standardized format.",["Transaction Processing System","Database","Data Mining","Data Warehouse"],3],
+[1,1,"An organizational initiative to deliver services to customers, from web call centers to loyalty programs such as rewarding frequent fliers.",["SCM","MSS","CRM","None"],2],
+[1,1,"Which is true with reference to DSS?",["DSS increases the speed and efficiency of decision-making activities","It automates managerial processes","It improves interpersonal communication within the organization","All of the above"],0],
+[1,1,"A manager who searches the organization and its environment for opportunities and initiates improvement projects is applying which Mintzberg role?",["Entrepreneur","Negotiator","Liaison","Disseminator"],0],
+[1,1,"The managerial roles identified by Mintzberg are:",["Interpersonal, Informational, and Decisional","Planning, Organizing, Coordinating, Deciding, and Controlling","Input, Process, Output, and Feedback","None of the above"],0],
+[1,1,"Seeks and receives a wide variety of special (mostly current) information to develop a thorough understanding of the organization and environment.",["Disturbance Handler","Negotiator","Monitor","Disseminator"],2],
+[1,1,"Responsible for corrective action when the organization faces important, unexpected disturbances.",["Disturbance Handler","Negotiator","Entrepreneur","Disseminator"],0],
+[1,1,"Which is NOT a factor that may affect the decision-making process?",["New technologies","Complex operation","Increasing governmental regulation","Management hierarchy"],3],
+[1,1,"A computerized system supports the decision-making process through:",["Quick computation at high cost","Provide final decision","Exceeding cognitive limits","Eliminate the role of decision maker"],2],
+[1,1,"______ is a computer program that uses AI to simulate the judgment and behavior of a human, or an organization with expert knowledge in a field.",["Decision support system","Knowledge management","Enterprise Information Systems","Expert Systems"],3],
+[1,1,"Systems that provide interaction and communication between people with the aid of IT are called:",["Collaborative computing","Knowledge management system","Customer relationship","None"],0],
+[1,1,"Integration of different computer system tools to resolve problems and produce smarter answers.",["Decision support system","Knowledge management system","Enterprise Information Systems","Hybrid Support Systems"],3],
+[1,1,"Which is true about an open system?",["Independent and takes no input","Independent and takes input","Black Box","Accepts inputs and delivers outputs to environment"],3],
+[1,1,"A closed decision support system is:",["Independent and takes no input","Independent and takes input","Delivers output to the environment","None of the above"],0],
+[1,1,"Which is a good characteristic of a DSS?",["It has an incremental model","Responds quickly to decision makers to help with decision making","Automates the decision-making process","None of the above"],0,"Lecture answer key: incremental model."],
+[1,1,"Which type of DSS modeling builds a small physical replication of a system?",["Analog Modeling","Iconic Modeling","Quantitative modeling","None of the above"],1],
+[1,1,"In DSS modeling, a behavioral representation of a system is:",["Analog Modeling","Iconic Modeling","Quantitative modeling","None of the above"],0],
+[2,1,"Normative model based on “more of good things, less of bad things” with options ranked best to worst:",["Optimization","Rationalization","Suboptimization","None of the above"],0],
+[2,1,"In ______ decisions are made in separate parts of the organization without consideration of the whole.",["Optimization","Rationalization","Suboptimization","None"],2],
+[2,1,"Which is considered a Descriptive Model?",["Optimization","Rationalization","Suboptimization","Simulations"],3],
+[2,1,"The phase where the solution is put to work:",["Intelligence","Design","Implementation","None of the above"],2],
+[2,1,"Defining the principle of choice is a very important task during the ______.",["Choice phase","Design phase","Intelligence phase","None"],1],
+[2,1,"The questions “Is the solution working?” and “Can we make it work better?” are asked in:",["Choice","Design","Implementation","Intelligence"],2],
+[2,1,"KMSs are used to support the intelligence phase.",TF,0],
+[2,1,"____ model is the most abstract model.",["Mathematical","Analog","Mental","Iconic"],0],
+[2,1,"R&D planning is an example of ____ decisions.",["Structured","Semi-structured","Unstructured","Programmed"],2],
+[1,1,"____ is not one of Mintzberg’s 10 managerial roles.",["Navigator","Disseminator","Liaison","Resource allocator"],0],
+[1,1,"____ is not one of Mintzberg’s 10 managerial roles. (version 2)",["Leader","Liaison","Informational monitor","Informational retrieval"],3],
+[2,1,"DSS involves all of the following analytical modeling activities EXCEPT:",["Goal-seeking analysis","Optimization analysis","Heuristics","Sensitivity analysis","What-if analysis"],2],
+[1,1,"____ is not a characteristic of organizational responses.",["Adaptive","Anticipative","Attractive","Reactive","Proactive"],2],
+[1,1,"ADS provide ____ solutions.",["Rule-based","Data-based","Knowledge-based","Expert-based"],0],
+[2,1,"In which analysis is the value of only one variable changed repeatedly to observe changes in others?",["Goal-seeking analysis","Sensitivity analysis","Optimization","What-if analysis"],1],
+[1,1,"Which managers develop short- and medium-range plans, schedules, and budgets and specify policies, procedures, and objectives for their sub-units?",["Operational","Front line","Tactical","Strategic"],2],
+[1,1,"Software that gives fast, consistent, interactive access to many possible views of information transformed from raw data to reflect the real dimensionality of the enterprise:",["OLAP software","Data Warehouse software","OLTP software"],0],
+[1,1,"BI methodologies and tools were developed mostly in the academic world.",TF,1,"They were developed mostly commercially."],
+[1,1,"MSS = combined term ____.",["DSS/DM","DSS/BI","DSS/DB","DSS/DW"],1],
+[1,1,"BPM is also referred to as ____.",["CRM","CPM","HRM","PCM"],1],
+[2,1,"Solving a model is the same as solving the problem the model represents.",TF,1],
+[2,1,"____ is probably the most common descriptive modeling method.",["Simulation","Optimization","Suboptimization","Good enough"],0],
+[1,1,"According to the textbook, DSS uses all of the following EXCEPT:",["A decision maker’s own insights and judgments","Online Transaction Processing","Interactive computer-based modeling for semi-structured decisions","Analytical models","Specialized databases"],1],
+[1,1,"Analyzing complex relationships among thousands or millions of data items in data marts/warehouses to discover patterns, trends and exceptions:",["OLTP","OLALA","OISE","OLAP"],3],
+[2,1,"Budget analysis is an example of ____ decisions.",["Semi-programmed","Semi-structured","Unstructured","Structured"],3],
+[1,1,"____ is not a style of BI.",["DM","Slice-and-dice","DW","Ad-hoc queries"],2],
+[1,1,"A/An ____ model may be three-dimensional.",["Iconic","Mathematical","Mental","Analog"],0],
+[1,1,"Automated decision systems (ADS) are mainly used with ____ problems.",["Semi-programmed","Unstructured","Structured","Semi-structured"],2],
+[2,1,"Scenarios are especially helpful in simulations and what-if analysis.",TF,0],
+[2,1,"OLAP is useful to support the design phase.",TF,0],
+[1,1,"Growth of intranets, extranets and the web opened the door to “executive class” decision support tools for lower management. Which tool?",["Business Intelligence (BI)","Busyness Intelligent (BI)","Business Knowledge (BK)","Business Ideas (BI)"],0],
+[2,1,"In which analysis is the goal to find the optimum value of target variables given constraints?",["What-if analysis","Optimization","Goal-seeking analysis","Sensitivity analysis"],1],
+[1,1,"Originally, the ____ included only historical data that were organized and summarized.",["BI","DW","DSS","DB"],1],
+[2,1,"A/An ____ model is the least abstract type of model.",["Iconic","Mathematical","Mental","Analog"],0],
+[2,1,"Another name for goal-seeking analysis is:",["How to","Why not","What’s up","How can"],3],
+[2,1,"ERPs are used to support all the DSS phases.",TF,0,"2024 solved key says True; the 2025 exam says ERP is used in all phases except intelligence (least used there)."],
+[2,1,"The assignment of authority to solve a problem occurs in which phase?",["Implementation","Choice","Design","Intelligence"],3,"Problem ownership – intelligence phase."],
+[1,1,"Increasing information overload is an example of ____ factor.",["Markets","Customer demand","Technology","Societal"],2],
+[1,1,"____ is a style of BI.",["Ad-hoc reports","Ad-hoc queries","DBMS","DW"],1],
+[2,1,"ERP is used in all Simon’s phases except ____.",["Intelligence phase","Design phase","Implementation phase","Choice phase"],0,"It is used/needed the least in intelligence."],
+[2,1,"The difference between the desired and actual outcome is called ____.",["Technical issues","Problem","Opportunity","All of the above"],1],
+[2,1,"The ____ includes the search, evaluation, and recommendation of an appropriate solution to the model.",["Intelligence phase","Design phase","Implementation phase","Choice phase"],3],
+[2,1,"A/An ____ model is the least detailed model.",["Iconic","Analog","Mental","Mathematical"],2],
+[2,1,"Cognitive maps are considered a ____ model.",["Iconic","Analog","Qualitative","Quantitative"],2],
+[1,1,"____ is an example of a business environmental factor.",["Strategy","Customer demand","Agility","New business model"],1],
+[1,1,"Which DSS type includes file drawer systems, data warehouses, OLAP systems and EIS?",["Communications-Driven DSS","Data-Driven DSS","Document-Driven DSS","Knowledge-Driven DSS"],1],
+[1,1,"Which computerized system is considered a reporting system?",["MIS","TPS","MSS","KBS"],0],
+[1,1,"DSS is a natural evolution of BI.",TF,1],
+[2,1,"Management science is a behavioral decision-making discipline.",TF,1],
+[1,1,"DSS supports interdependent decisions.",TF,0],
+[2,1,"Classification of problems always happens in the intelligence phase.",TF,0],
+[2,1,"The boundary between design and choice is always unclear.",TF,0],
+[1,1,"ADS are mainly used with structured and semi-structured problems.",TF,1],
+[1,1,"OLAP is a major tool category of data management.",TF,1],
+[1,1,"Document-driven DSS is one of the AIS SIGDSS classifications for DSS.",TF,0],
+[1,0,"Business environmental factors don’t pressure the organization’s response.",TF,1],
+[1,0,"Desire for quality and diversity of products lies under which business environmental factor?",["Technology","Markets","Customer demand","B & C"],2],
+[1,0,"Closing the strategy gap means closing the gap between…",["Current and past performance","Past and current objectives","Current and desired performance","All of the mentioned"],2],
+[2,0,"Gorry & Scott framework: short-term forecasting is what type of decision, under what control?",["Semistructured and managerial","Structured and operational","Semistructured and strategic","Structured and managerial"],3],
+[2,0,"Management science approach is also referred to as operations research.",TF,0],
+[1,0,"A rule-based system providing solutions to repetitive managerial problems in a specific area, driven by business rules:",["TPS","ADS","CRM","None of them"],1],
+[2,0,"Unstructured problems don’t usually require customized solutions.",TF,1],
+[1,0,"BI’s major objective is to enable easy access to data so managers can conduct analysis.",TF,0],
+[1,0,"Data warehouse is not a major component in a BI system.",TF,1],
+[1,0,"A collection of tools for manipulating, mining and analyzing data in the data warehouse:",["Data warehouse tools","UI tools","Business goals","Business analytics"],3],
+[1,0,"Consensus is often hard to reach in large organizations.",TF,0],
+[2,0,"A 2-dimensional chart is considered a…",["Qualitative model","Quantitative model","Analog model","Iconic model"],2],
+[1,0,"Main areas of operation of DSS include:",["Transaction processing","Production, finance, and marketing","Executive Support System","None of the above"],1],
+[2,0,"Simulation happens in which phase?",["Intelligence","Design","Implementation","Choice"],1],
+[2,0,"A formal problem statement is the outcome of the intelligence phase.",TF,0],
+[2,0,"CRM and SCM are used in which phase(s) of decision making?",["Intelligence","Design","Implementation","Choice","Design & Choice"],4],
+[2,0,"MIS and ANN are used in which phase of decision making?",["Intelligence","Design","Implementation","Choice"],0],
+[1,0,"The ___ includes tools that help the end-user of a DSS navigate through the system.",["User Interface","Transaction Process System","Executive Support System","None of the above"],0]
+].map((r,i)=>({id:i,ch:r[0],m:r[1],q:r[2],o:r[3],a:r[4],n:r[5]||"",tf:r[3][0]==="True"}));
+let F="all",order=D.map(x=>x.id),ans={};
+const $=id=>document.getElementById(id),L=$("list");
+const tabs=[["all","All Ch 1 & Ch 2",x=>1],["1","Chapter 1: DSS & BI",x=>x.ch==1],["2","Chapter 2: Decision Making & Modeling",x=>x.ch==2],["m","Midterm Exam Ch 1 & 2",x=>x.m],["tf","True / False Only",x=>x.tf]];
+function render(){
+ const t=tabs.find(x=>x[0]==F)[2],s=$("s").value.toLowerCase(),sh=$("sh").value,inst=$("inst").checked;
+ $("tabs").innerHTML="";tabs.forEach(x=>{const b=document.createElement("button");b.textContent=x[1]+" ("+D.filter(x[2]).length+")";if(x[0]==F)b.className="on";b.onclick=()=>{F=x[0];render()};$("tabs").append(b)});
+ $("cnt").textContent=D.length+" Questions";$("tot").textContent=D.length;
+ let a=Object.keys(ans).length,c=Object.values(ans).filter((v,i)=>v==D[+Object.keys(ans)[i]].a).length;
+ $("ans").textContent=a;$("sco").textContent=c+" / "+a+" ("+(a?Math.round(100*c/a):0)+"%)";
+ L.innerHTML="";let k=0;
+ order.map(i=>D[i]).filter(x=>t(x)&&(!s||(x.q+x.o.join(" ")).toLowerCase().includes(s))&&(sh=="a"||(sh=="u"&&!(x.id in ans))||(sh=="w"&&x.id in ans&&ans[x.id]!=x.a)||(sh=="c"&&ans[x.id]===x.a))).forEach(x=>{
+  k++;const d=document.createElement("div");d.className="q";const done=x.id in ans;
+  d.innerHTML='<div class="meta">#'+k+" • Chapter "+x.ch+(x.m?" • Midterm":"")+(x.tf?" • T/F":"")+"</div><h3></h3>";d.querySelector("h3").textContent=x.q;
+  x.o.forEach((o,j)=>{const b=document.createElement("button");b.className="o";b.textContent=String.fromCharCode(65+j)+") "+o;
+   if(done&&inst){if(j==x.a)b.classList.add("c");else if(j==ans[x.id])b.classList.add("w")}
+   else if(done&&j==ans[x.id])b.style.borderColor="var(--pr)";
+   b.onclick=()=>{if(done&&inst)return;ans[x.id]=j;render()};d.append(b)});
+  if(done&&inst&&x.n){const n=document.createElement("div");n.className="note";n.textContent="Note: "+x.n;d.append(n)}
+  L.append(d)});
+ if(!k)L.innerHTML='<p class="sub">No questions match.</p>';
+}
+$("s").oninput=render;$("sh").onchange=render;$("inst").onchange=render;
+$("rst").onclick=()=>{ans={};render()};
+$("shuf").onclick=()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}render()};
+render();
+</script></body></html>
